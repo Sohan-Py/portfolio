@@ -1184,6 +1184,8 @@ body {
 
   .hero-title {
     font-size: 24px;
+    width:70%;
+    margin: 0 auto;
   }
 
   .btn-large {
