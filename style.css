@@ -258,37 +258,44 @@ body {
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
-  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 10px;
+  padding: 12px;
   z-index: 1001;
   position: relative;
   -webkit-tap-highlight-color: transparent;
+  width: 50px;
+  height: 50px;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .mobile-menu-toggle span {
-  width: 28px;
+  width: 30px;
   height: 3px;
   background: var(--text-primary);
-  transition: all 0.3s ease;
-  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 3px;
   display: block;
+  transform-origin: center;
 }
 
 .mobile-menu-toggle.active span:nth-child(1) {
-  transform: rotate(45deg);
-  translate: 0 9px;
+  transform: translateY(8px) rotate(45deg);
 }
 
 .mobile-menu-toggle.active span:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0);
 }
 
 .mobile-menu-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg);
-  translate: 0 -9px;
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* ================= HERO ================= */
@@ -1166,14 +1173,18 @@ body {
     top: 80px;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: rgba(15, 19, 32, 0.98);
+    height: calc(100vh - 80px);
+    background: rgba(10, 13, 26, 0.98);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     flex-direction: column;
     padding: 40px 24px;
-    gap: 24px;
+    gap: 0;
     z-index: 999;
     overflow-y: auto;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
   .mobile-menu-toggle {
@@ -1182,14 +1193,21 @@ body {
 
   .nav-links.active {
     display: flex;
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .nav-link {
     font-size: 20px;
-    padding: 16px 0;
+    padding: 20px 16px;
     text-align: center;
     width: 100%;
     border-bottom: 1px solid var(--border-subtle);
+    display: block;
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
   }
 
   .nav-link::after {
@@ -1354,15 +1372,18 @@ body {
   }
 
   .mobile-menu-toggle {
-    padding: 12px;
+    padding: 14px;
+    width: 52px;
+    height: 52px;
   }
 
   .mobile-menu-toggle span {
-    width: 28px;
+    width: 30px;
     height: 3px;
   }
 
   .nav-link {
     font-size: 18px;
+    padding: 18px 12px;
   }
 }
