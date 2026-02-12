@@ -43,86 +43,75 @@ window.addEventListener('scroll', () => {
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const navLinks = document.getElementById('navLinks');
 
-if (mobileMenuToggle && navLinks) {
-  // Handle both click and touch events for better mobile support
-  const toggleMenu = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    const isActive = navLinks.classList.contains('active');
-    
-    if (isActive) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  };
+function toggleMobileMenu() {
+  if (!mobileMenuToggle || !navLinks) return;
   
-  const openMenu = () => {
-    navLinks.classList.add('active');
-    mobileMenuToggle.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent background scroll
-    
-    // Animate hamburger
-    const spans = mobileMenuToggle.querySelectorAll('span');
-    spans[0].style.transform = 'rotate(45deg) translate(7px, 7px)';
-    spans[1].style.opacity = '0';
-    spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
-  };
+  const isActive = navLinks.classList.contains('active');
+  const spans = mobileMenuToggle.querySelectorAll('span');
   
-  const closeMenu = () => {
-    navLinks.classList.remove('active');
-    mobileMenuToggle.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scroll
-    
-    // Reset hamburger
-    const spans = mobileMenuToggle.querySelectorAll('span');
-    spans[0].style.transform = 'none';
-    spans[1].style.opacity = '1';
-    spans[2].style.transform = 'none';
-  };
-  
-  // Add both click and touchstart for mobile compatibility
-  mobileMenuToggle.addEventListener('click', toggleMenu);
-  mobileMenuToggle.addEventListener('touchstart', toggleMenu, { passive: false });
-  
-  // Close menu when clicking on a link
-  const navLinksArray = navLinks.querySelectorAll('.nav-link');
-  navLinksArray.forEach(link => {
-    link.addEventListener('click', () => {
-      closeMenu();
-    });
-  });
-}
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-  if (navLinks && navLinks.classList.contains('active')) {
-    if (!e.target.closest('.navbar')) {
-      const spans = mobileMenuToggle.querySelectorAll('span');
-      navLinks.classList.remove('active');
-      mobileMenuToggle.classList.remove('active');
-      document.body.style.overflow = '';
-      
-      spans[0].style.transform = 'none';
-      spans[1].style.opacity = '1';
-      spans[2].style.transform = 'none';
-    }
-  }
-});
-
-// Close menu on window resize if open
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 1024 && navLinks && navLinks.classList.contains('active')) {
+  if (isActive) {
+    // Close menu
     navLinks.classList.remove('active');
     mobileMenuToggle.classList.remove('active');
     document.body.style.overflow = '';
     
-    const spans = mobileMenuToggle.querySelectorAll('span');
-    spans[0].style.transform = 'none';
+    spans[0].style.transform = 'rotate(0)';
+    spans[0].style.translate = '0 0';
     spans[1].style.opacity = '1';
-    spans[2].style.transform = 'none';
+    spans[2].style.transform = 'rotate(0)';
+    spans[2].style.translate = '0 0';
+  } else {
+    // Open menu
+    navLinks.classList.add('active');
+    mobileMenuToggle.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    spans[0].style.transform = 'rotate(45deg)';
+    spans[0].style.translate = '0 9px';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg)';
+    spans[2].style.translate = '0 -9px';
   }
+}
+
+if (mobileMenuToggle) {
+  mobileMenuToggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleMobileMenu();
+  });
+}
+
+// Close menu when clicking on a nav link
+if (navLinks) {
+  const allNavLinks = navLinks.querySelectorAll('a');
+  allNavLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      if (navLinks.classList.contains('active')) {
+        toggleMobileMenu();
+      }
+    });
+  });
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', function(e) {
+  if (navLinks && navLinks.classList.contains('active')) {
+    if (!e.target.closest('.nav-container')) {
+      toggleMobileMenu();
+    }
+  }
+});
+
+// Close menu on resize to desktop
+let resizeTimer;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function() {
+    if (window.innerWidth > 1024 && navLinks && navLinks.classList.contains('active')) {
+      toggleMobileMenu();
+    }
+  }, 250);
 });
 
 // ================= INTERSECTION OBSERVER FOR ANIMATIONS ================= 
