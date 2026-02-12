@@ -405,6 +405,13 @@ body {
   animation: float-card 3s ease-in-out infinite;
 }
 
+/* Hide on tablets and mobile */
+@media (max-width: 1200px) {
+  .floating-card {
+    display: none !important;
+  }
+}
+
 .card-icon {
   font-size: 24px;
 }
@@ -1070,6 +1077,8 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    width: 100%;
+    max-width: 100%;
   }
 
   .hero-badge {
@@ -1079,12 +1088,18 @@ body {
 
   .hero-title {
     text-align: center;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .hero-subtitle {
     margin: 0 auto 40px;
     text-align: center;
     max-width: 100%;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .hero-cta {
@@ -1104,10 +1119,12 @@ body {
 
   .hero-visual {
     order: -1;
+    position: relative;
   }
 
+  /* Hide floating cards on mobile - they cause layout issues */
   .floating-card {
-    display: none;
+    display: none !important;
   }
 
   .about-story {
@@ -1153,13 +1170,22 @@ body {
 
   .hero {
     padding: 120px 5% 60px;
+    overflow-x: hidden;
+  }
+
+  .hero-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   .hero-content {
     width: 100%;
+    max-width: 100%;
     padding: 0;
     align-items: center;
     text-align: center;
+    overflow-x: hidden;
   }
 
   .hero-badge {
@@ -1168,34 +1194,50 @@ body {
   }
 
   .hero-title {
-    font-size: 36px;
+    font-size: 32px;
     text-align: center;
     width: 100%;
+    max-width: 100%;
+    padding: 0 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 
   .hero-subtitle {
-    font-size: 17px;
+    font-size: 16px;
     text-align: center;
     width: 100%;
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .hero-cta {
     width: 100%;
     justify-content: center;
     align-items: center;
+    padding: 0 10px;
   }
 
   .hero-stats {
     grid-template-columns: 1fr;
     gap: 24px;
     width: 100%;
+    padding: 0 10px;
   }
 
   .stat-item {
     text-align: center;
+  }
+
+  /* Ensure floating cards don't show on mobile */
+  .floating-card {
+    display: none !important;
+    visibility: hidden;
   }
 
   .services-grid,
@@ -1256,54 +1298,82 @@ body {
     --container-padding: 5%;
   }
 
+  body {
+    overflow-x: hidden;
+  }
+
   .hero {
-    padding: 110px 4% 50px;
+    padding: 100px 4% 50px;
+    overflow-x: hidden;
+  }
+
+  .hero-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   .section-title {
-    font-size: 28px;
+    font-size: 26px;
     text-align: center;
-    padding: 0;
+    padding: 0 8px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .section-subtitle {
-    font-size: 16px;
+    font-size: 15px;
     text-align: center;
-    padding: 0;
+    padding: 0 8px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .hero-content {
     width: 100%;
+    max-width: 100%;
     padding: 0;
+    overflow-x: hidden;
   }
 
   .hero-badge {
-    font-size: 13px;
-    padding: 6px 14px;
+    font-size: 12px;
+    padding: 6px 12px;
   }
 
   .hero-title {
-    font-size: 30px;
+    font-size: 28px;
     text-align: center;
-    padding: 0;
+    padding: 0 8px;
     line-height: 1.2;
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 
   .hero-subtitle {
-    font-size: 16px;
+    font-size: 15px;
     text-align: center;
-    padding: 0;
+    padding: 0 8px;
     line-height: 1.6;
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .hero-cta {
     flex-direction: column;
     width: 100%;
     gap: 12px;
+    padding: 0 8px;
   }
 
   .hero-cta a {
     width: 100%;
+    max-width: 280px;
     justify-content: center;
   }
 
@@ -1311,6 +1381,19 @@ body {
     padding: 16px 28px;
     font-size: 15px;
     width: 100%;
+  }
+
+  /* Completely hide floating cards on small mobile */
+  .floating-card {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+
+  .hero-visual {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
   }
 
   .contact-wrapper {
@@ -1333,26 +1416,26 @@ body {
   }
 
   .nav-links {
-    gap: 12px;
-    font-size: 11px;
+    gap: 10px;
+    font-size: 10px;
   }
 
   .nav-link {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .nav-cta {
-    gap: 8px;
+    gap: 6px;
   }
 
   .nav-cta .btn-secondary svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 
   .nav-cta .btn-secondary,
   .nav-cta .btn-primary {
-    padding: 6px 10px;
-    font-size: 11px;
+    padding: 6px 8px;
+    font-size: 10px;
   }
 }
