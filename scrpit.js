@@ -11,13 +11,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         top: targetPosition,
         behavior: 'smooth'
       });
-      
-      // Close mobile menu if open
-      const navLinks = document.getElementById('navLinks');
-      if (navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
-        document.getElementById('mobileMenuToggle').classList.remove('active');
-      }
     }
   });
 });
@@ -38,74 +31,6 @@ window.addEventListener('scroll', () => {
   
   lastScrollTop = scrollTop;
 });
-
-// ================= MOBILE MENU TOGGLE ================= 
-(function() {
-  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-  const navLinks = document.getElementById('navLinks');
-  
-  if (!mobileMenuToggle || !navLinks) return;
-  
-  function openMenu() {
-    navLinks.classList.add('active');
-    mobileMenuToggle.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
-  }
-  
-  function closeMenu() {
-    navLinks.classList.remove('active');
-    mobileMenuToggle.classList.remove('active');
-    document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.width = '';
-  }
-  
-  function toggleMenu(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (navLinks.classList.contains('active')) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  }
-  
-  // Add click listener
-  mobileMenuToggle.addEventListener('click', toggleMenu, false);
-  
-  // Add touch listener for mobile
-  mobileMenuToggle.addEventListener('touchend', function(e) {
-    e.preventDefault();
-    toggleMenu(e);
-  }, false);
-  
-  // Close menu when clicking on any link
-  const allLinks = navLinks.querySelectorAll('a');
-  allLinks.forEach(function(link) {
-    link.addEventListener('click', function() {
-      closeMenu();
-    });
-  });
-  
-  // Close menu when clicking outside
-  document.addEventListener('click', function(e) {
-    if (navLinks.classList.contains('active')) {
-      if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
-        closeMenu();
-      }
-    }
-  });
-  
-  // Close on window resize
-  window.addEventListener('resize', function() {
-    if (window.innerWidth > 1024 && navLinks.classList.contains('active')) {
-      closeMenu();
-    }
-  });
-})();
 
 // ================= INTERSECTION OBSERVER FOR ANIMATIONS ================= 
 const observerOptions = {
